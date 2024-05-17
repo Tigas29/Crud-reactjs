@@ -8,6 +8,7 @@ import {
   ToDoList,
   ListItem,
   Trash,
+  EditUser
 } from './style';
 
 function App() {
@@ -16,14 +17,16 @@ function App() {
   const age = useRef()
 
   function AddNewUser() {
-    setUsers([...users, { name: name.input.value, age: age.input.value, id: uuid() }]);
+    setUsers([...users, { name: name.current.value, age: age.current.value, id: uuid() }]);
   }
 
-
+  function checkUser(callUser) {
+    const newUser = users.filter(user => user.id !== callUser);
+    return newUser
+  }
 
   function deleteUser(idUser) {
-    const newUser = users.filter(user => user.id !== idUser);
-    setUsers(newUser);
+    setUsers(checkUser(idUser));
   }
 
   return (
@@ -39,6 +42,7 @@ function App() {
             <span>{user.name}</span>
             <span>{user.age}</span>
             <Trash onClick={() => deleteUser(user.id)}>Deletar</Trash>
+            <EditUser onClick={() => deleteUser(user.id)}>Editar</EditUser >
           </ListItem>
         ))}
       </ToDoList>

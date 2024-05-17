@@ -62,7 +62,18 @@ export const ListItem = styled.div`
     font-size: 16px;
   }
 `;
-
+export const EditUser = styled.button`
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: #45a049;
+  }
+`;
 export const Trash = styled.button`
   background-color: #ff4d4d;
   color: white;
