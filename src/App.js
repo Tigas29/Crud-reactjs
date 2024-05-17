@@ -1,46 +1,48 @@
-import React, { useState } from 'react'
-import { v4 as uuid } from 'uuid'
-
+import React, { useState, useRef } from 'react';
+import { v4 as uuid } from 'uuid';
 import {
   Container,
-  ToDoList,
+  Form,
   Input,
   Button,
+  ToDoList,
   ListItem,
   Trash,
-  Check,
-} from './style.js'
+} from './style';
 
 function App() {
   const [users, setUsers] = useState([]);
-  const [name, setName] = useState([]);
-  const [age, setAge] = useState([]);
+  const name = useRef()
+  const age = useRef()
+
   function AddNewUser() {
-    setUsers([...users, {
-      name,
-      age,
-      id: uuid()
-    }
-    ],)
+    setUsers([...users, { name: name.input.value, age: age.input.value, id: uuid() }]);
   }
-  function catchName(e) {
-    setName(e.target.value)
+
+
+
+  function deleteUser(idUser) {
+    const newUser = users.filter(user => user.id !== idUser);
+    setUsers(newUser);
   }
-  function catchAge(e) {
-    setAge(e.target.value)
-  }
+
   return (
-    <Container className="App">
-      <Input placeholder='nome' onChange={catchName} />
-      <Input placeholder='Idade' onChange={catchAge} />
-      <Button onClick={AddNewUser}>Cadastrar</Button>
-      {users.map(user => (
-        <ul key={user.id}>
-          <li>{user.name}</li>
-          <li>{user.age}</li>
-        </ul>
-      ))}
-    </Container >
+    <Container>
+      <Form>
+        <Input placeholder='Nome' ref={name} />
+        <Input placeholder='Idade' ref={age} />
+        <Button onClick={AddNewUser}>Cadastrar</Button>
+      </Form>
+      <ToDoList>
+        {users.map(user => (
+          <ListItem key={user.id}>
+            <span>{user.name}</span>
+            <span>{user.age}</span>
+            <Trash onClick={() => deleteUser(user.id)}>Deletar</Trash>
+          </ListItem>
+        ))}
+      </ToDoList>
+    </Container>
   );
 }
 
