@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { v4 as uuid } from 'uuid';
+import axios from 'axios';
 import {
   Container,
   Form,
@@ -16,9 +17,13 @@ function App() {
   const nameRef = useRef();
   const ageRef = useRef();
 
-  function addNewUser() {
-    setUsers([...users, { name: nameRef.current.value, age: ageRef.current.value, id: uuid() }]);
-    nameRef.current.value = ""; 
+  async function addNewUser() {
+    const data = await axios.post('http://localhost:3001/user', {
+      name: nameRef.current.value, age: ageRef.current.value
+    });
+    console.log(data);
+    setUsers([...users, { name: data.data.name, age: data.data.age, id: data.data.id }]);
+    nameRef.current.value = "";
     ageRef.current.value = "";
   }
 
@@ -54,8 +59,8 @@ function App() {
   return (
     <Container>
       <Form>
-        <Input placeholder='Nome' ref={nameRef} />
-        <Input placeholder='Idade' ref={ageRef} />
+        <Input type="text" placeholder='Nome' ref={nameRef} />
+        <Input type="text" placeholder='Idade' ref={ageRef} />
         <Button onClick={addNewUser}>Cadastrar</Button>
       </Form>
       <ToDoList>
