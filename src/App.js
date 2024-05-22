@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
 import axios from 'axios';
 import {
@@ -25,12 +25,24 @@ function App() {
     setUsers([...users, { name: data.data.name, age: data.data.age, id: data.data.id }]);
     nameRef.current.value = "";
     ageRef.current.value = "";
+
   }
+  async function ShowUsersfromData() {
+    const { data } = await axios.get('http://localhost:3001/user'
+    );
+
+    setUsers([{
+      name: data.name, age: data.age, id: data.id
+    }])
+  }
+
 
   function findUser(id) {
     const index = users.findIndex(user => user.id === id);
     return index !== -1 ? { user: users[index], index } : null;
   }
+
+
 
   function deleteUser(idUser) {
     const userIndex = findUser(idUser)?.index;
