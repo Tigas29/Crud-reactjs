@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -27,12 +27,12 @@ export const Input = styled.input`
 export const Button = styled.button`
   padding: 10px 20px;
   border: none;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
-  
+
   &:hover {
     background-color: #45a049;
   }
@@ -53,7 +53,7 @@ export const ListItem = styled.div`
   align-items: center;
   padding: 10px 0;
   border-bottom: 1px solid #eee;
-  
+
   &:last-child {
     border-bottom: none;
   }
@@ -63,13 +63,13 @@ export const ListItem = styled.div`
   }
 `;
 export const EditUser = styled.button`
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   border: none;
   padding: 5px 10px;
   border-radius: 4px;
   cursor: pointer;
-  
+
   &:hover {
     background-color: #45a049;
   }
@@ -81,7 +81,7 @@ export const Trash = styled.button`
   padding: 5px 10px;
   border-radius: 4px;
   cursor: pointer;
-  
+
   &:hover {
     background-color: #ff3333;
   }

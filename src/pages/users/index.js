@@ -1,32 +1,17 @@
-import React, { useState, useRef, useEffect } from "react";
-import { v4 as uuid } from "uuid";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   Container,
-  Form,
-  Input,
-  Button,
   ToDoList,
+  Button,
   ListItem,
   Trash,
   EditUser,
 } from "./style";
-
-function App() {
+import { Link, useNavigate } from "react-router-dom";
+import ButtonComponent from "../../components/button";
+function Users() {
   const [users, setUsers] = useState([]);
-  const nameRef = useRef();
-  const ageRef = useRef();
-
-  async function addNewUser() {
-    const { data: newUsers } = await axios.post("http://localhost:3001/user", {
-      name: nameRef.current.value,
-      age: ageRef.current.value,
-    });
-    setUsers([...users, newUsers]);
-    nameRef.current.value = "";
-    ageRef.current.value = "";
-  }
-
   useEffect(() => {
     async function fetchUsers() {
       const { data: newUsers } = await axios.get(" http://localhost:3001/user");
@@ -73,11 +58,6 @@ function App() {
 
   return (
     <Container>
-      <Form>
-        <Input type="text" placeholder="Nome" ref={nameRef} />
-        <Input type="text" placeholder="Idade" ref={ageRef} />
-        <Button onClick={addNewUser}>Cadastrar</Button>
-      </Form>
       <ToDoList>
         {users.map((user) => (
           <ListItem key={user.id}>
@@ -88,8 +68,9 @@ function App() {
           </ListItem>
         ))}
       </ToDoList>
+      <ButtonComponent children={"Voltar"} to="/" isUser={true} />
     </Container>
   );
 }
 
-export default App;
+export default Users;
